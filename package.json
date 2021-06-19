@@ -6,19 +6,27 @@
   "repository": "https://github.com/elxeltor/rest-api-test",
   "author": "elxeltor",
   "license": "MIT",
+  "scripts": {
+    "migrate:make": "knex --knexfile db/knexfile.ts migrate:make",
+    "migrate:up": "knex --knexfile db/knexfile.ts migrate:latest",
+    "migrate:down": "knex --knexfile db/knexfile.js migrate:rollback"
+  },
   "dependencies": {
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "knex": "^0.95.6",
     "log4js": "^6.3.0",
+    "npm-run-all": "^4.1.5",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.12",
     "@types/jest": "^26.0.23",
-    "@types/knex": "^0.16.1",
     "@types/log4js": "^2.3.5",
     "@types/sqlite3": "^3.1.7",
-    "jest": "^27.0.4"
+    "eslint": "^7.29.0",
+    "jest": "^27.0.4",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
   }
 }
