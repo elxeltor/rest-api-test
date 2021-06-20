@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { roomRouter } from '../room'
+import roomRouter from '../room/route';
 
 const routes = express.Router();
 
