@@ -1,7 +1,9 @@
 const dotenv = require('dotenv');
+const path = require('path');
 dotenv.config();
 
-const dbFileName = 'hotel-reservation-db.sqlite3';
+const dbName = process.env.SQLITE_FILENAME || 'hotel-reservation-db.sqlite3';
+const dbFileName = path.join(__dirname, '..', dbName);
 
 const knexConfig = {
   client: 'sqlite3',
