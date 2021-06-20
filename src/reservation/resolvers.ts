@@ -135,3 +135,14 @@ export const updateReservation = async (req: Request, res: Response, next: NextF
     next(new ConflictError({message: 'You tried to update the reservation twice and at the same time.'}));
   }
 }
+
+export const listReservations = async (req: Request, res: Response, next: NextFunction) => {
+  const { userId } = req.body;
+  const query = db(RESERVATIONS_TABLE).select();
+  if (userId){
+    query.where('user_id', userId);
+  }
+
+  const reservations = await query;
+  res.status(200).send(reservations);
+}
