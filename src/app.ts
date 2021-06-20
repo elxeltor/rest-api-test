@@ -26,7 +26,6 @@ app.use(express.json());
 app.use('/api', routes);
 
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
-  console.log('GOT HERE', err)
   res.status(err.code).end(err.message)
 });
 

@@ -25,13 +25,11 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
-  console.log('here', req.body);
   try {
     const results = await db(TABLE_NAME).select().where({
       email,
       password,
     });
-    console.log('there', {results})
     if (!results || !results.length) {
       next(new UnauthorizedError('Invalid Email or Password'));
     } else {
