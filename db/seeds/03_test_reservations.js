@@ -8,7 +8,7 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('reservations').insert([
-        {user_id: 1, room_id: 1, from: dateNow.toISOString(), to: dateIn3Days.toISOString()},
+        {user_id: 1, room_id: 1, nb_persons: 3, from: dateNow.toISOString(), to: dateIn3Days.toISOString()},
       ]);
     });
 };
