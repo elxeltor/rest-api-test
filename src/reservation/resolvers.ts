@@ -5,11 +5,11 @@ import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { ConflictError } from "../errors/ConflictError";
 import logger from "../utils/logger";
+import { ForbiddenError } from "../errors/ForbiddenError";
 
 const RESERVATIONS_TABLE = 'reservations';
 
 const isISODateFormat = (date: string) => {
-  console.log(moment.utc(date).toISOString());
   return moment.utc(date).toISOString() === date;
 }
 
@@ -28,7 +28,7 @@ const roomBookingDataIsValid = ({from, to, nbGuests}: ReservationParams) => {
     errorMessages.push(`Dates must be in ISO format, ie: ${new Date().toISOString()}`);
   }
 
-  if (moment(from).diff(moment(to), "days") > 3) {
+  if (Math.abs(moment(to).diff(moment(from), "days")) > 3) {
     errorMessages.push('The reservation shouldn\'t last more than 3 days');
   }
 
@@ -92,7 +92,7 @@ export const cancelReservation = async (req: Request, res: Response, next: NextF
     res.status(200).send({ message: `The reservation with ID: ${reservationId} has been canceled`});
   } catch (error) {
     logger.error('Couldn\'t delete the reservation', req.body, req.params, '\nwith error:', error);
-    next(new BadRequestError({ message: 'This reservation has either not been created by you, or has already been canceled'}));
+    next(new ForbiddenError({ message: 'This reservation has either not been created by you, or has already been canceled'}));
   }
 }
 
@@ -115,7 +115,7 @@ export const updateReservation = async (req: Request, res: Response, next: NextF
       })
 
       if (!reservations || !reservations.length) {
-        next(new BadRequestError({ message: 'This reservation has either not been created by you, or has been canceled'}));
+        next(new ForbiddenError({ message: 'This reservation has either not been created by you, or has been canceled'}));
         return trx.rollback;
       }
 

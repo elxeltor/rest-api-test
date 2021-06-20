@@ -3,7 +3,7 @@ exports.seed = function(knex) {
   // Deletes ALL existing entries
   const dateNow = new Date();
   const dateIn3Days = new Date();
-  dateIn3Days.setHours(dateNow.getHours() + 3)
+  dateIn3Days.setHours(dateNow.getHours() + 3*24);
   return knex('reservations').del()
     .then(function () {
       // Inserts seed entries
