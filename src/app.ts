@@ -42,7 +42,4 @@ app.all('*', (req: Request, res: Response) => {
   res.status(404).json({ message: 'Route Not Found' });
 });
 
-const port = process.env.API_PORT || 5000;
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
-})
+export { app };

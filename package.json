@@ -15,7 +15,7 @@
     "migrate:down": "knex --knexfile db/knexfile.js migrate:rollback",
     "db:remove": "rimraf hotel-reservation-db.sqlite3",
     "db:reset": "npm-run-all db:remove migrate:up",
-    "dev": "ts-node --files ./src/app.ts",
+    "dev": "ts-node --files ./src/index.ts",
     "clean": "rimraf dist",
     "lint:fix": "eslint --ext .ts --quiet --fix",
     "tsc": "tsc",
