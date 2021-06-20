@@ -1,8 +1,8 @@
-import { HttpError } from "./HttpError";
+import { ErrorParams, HttpError } from "./HttpError";
 
 export class BadRequestError extends HttpError {
-  constructor (message: string) {
-    super(400, message);
+  constructor (params: ErrorParams) {
+    super({...params, code: 400});
     this.name = 'BadRequestError';
   }
 }

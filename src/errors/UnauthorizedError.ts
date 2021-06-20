@@ -1,8 +1,8 @@
-import { HttpError } from "./HttpError";
+import { ErrorParams, HttpError } from "./HttpError";
 
 export class UnauthorizedError extends HttpError {
-  constructor (message: string) {
-    super(403, message);
+  constructor (params: ErrorParams) {
+    super({...params, code: 403});
     this.name = 'UnauthorizedError';
   }
 }

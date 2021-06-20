@@ -13,9 +13,9 @@ export const getAllRooms = async (req: Request, res: Response, next: NextFunctio
     if (allRooms.length) {
       res.status(200).send(allRooms);
     } else {
-      next(new NotFoundError('The list of rooms is empty.'));
+      next(new NotFoundError({ message: 'The list of rooms is empty.'}));
     }
   } catch (error) {
-    next(new NotFoundError('Unexpected Error while getting the list of rooms'));
+    next(new NotFoundError({ message: 'Unexpected Error while getting the list of rooms'}));
   }
 }

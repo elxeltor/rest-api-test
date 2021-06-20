@@ -19,7 +19,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     res.status(200).send({message: 'User registered and logged-in'});
   } catch (error) {
     logger.error('Could not insert user', req.body, '\nwith error:', error);
-    next(new BadRequestError(`Invalid user information, ${req.body}`))
+    next(new BadRequestError({ message: `Invalid user information, ${req.body}`}))
   }
 }
 
@@ -31,12 +31,12 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
       password,
     });
     if (!results || !results.length) {
-      next(new UnauthorizedError('Invalid Email or Password'));
+      next(new UnauthorizedError({ message: 'Invalid Email or Password'}));
     } else {
       res.status(200).send({message: 'User logged-in'});
     }
   } catch (error) {
     logger.error('Could not search for user', req.body, '\nwith error:', error);
-    next(new BadRequestError('Invalid User'));
+    next(new BadRequestError({ message: 'Invalid User'}));
   }
 }

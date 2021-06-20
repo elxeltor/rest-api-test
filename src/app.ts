@@ -26,7 +26,20 @@ app.use(express.json());
 app.use('/api', routes);
 
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
-  res.status(err.code).end(err.message)
+  if (err instanceof HttpError) {
+    res.status(err.code).json(err.data)
+  } else {
+    next(err);
+  }
+});
+
+app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
+  res.status(500).send('Internal Server Error');
+  next();
+});
+
+app.all('*', (req: Request, res: Response) => {
+  res.status(404).json({ message: 'Route Not Found' });
 });
 
 const port = process.env.API_PORT || 5000;
