@@ -13,8 +13,13 @@
     "migrate:make": "knex --knexfile db/knexfile.js migrate:make",
     "migrate:up": "knex --knexfile db/knexfile.js migrate:latest",
     "migrate:down": "knex --knexfile db/knexfile.js migrate:rollback",
+    "db:remove": "rimraf hotel-reservation-db.sqlite3",
+    "db:reset": "npm-run-all db:remove migrate:up",
     "dev": "ts-node --files ./src/app.ts",
-    "build": "tsc"
+    "clean": "rimraf dist",
+    "lint:fix": "eslint --ext .ts --quiet --fix",
+    "tsc": "tsc",
+    "build": "npm-run-all clean lint:fix tsc"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -23,6 +28,7 @@
     "knex": "^0.95.6",
     "log4js": "^6.3.0",
     "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
