@@ -114,7 +114,6 @@ describe('reservations', () => {
     const reservations = await testClient.get('/api/v1/reservation').then(res => res.body);
     const inAMonth = moment().utc().add(2, 'month');
     const inAMonthAnd3Days = inAMonth.add(3, 'days');
-    console.log(reservations)
     const res = await testClient.put(`/api/v1/reservation/${reservations[0].id}`)
       .send({
         "roomId": 1,
@@ -126,6 +125,19 @@ describe('reservations', () => {
       .expect(403);
     const newNbOfReservations = await testClient.get('/api/v1/reservation').then(res => res.body.length);
     expect(newNbOfReservations).toBe(reservations.length);
+    return;
+  });
+
+  it('should be able to cancel/delete a reservation', async () => {
+    const reservations = await testClient.get('/api/v1/reservation').then(res => res.body);
+    await testClient.delete(`/api/v1/reservation/${reservations[0].id}`)
+      .send({
+        "userId": 1,
+      })
+      .expect(200);
+    
+    const newNbOfReservations = await testClient.get('/api/v1/reservation').then(res => res.body.length);
+    expect(newNbOfReservations).toBeLessThan(reservations.length);
     return;
   });
 })
