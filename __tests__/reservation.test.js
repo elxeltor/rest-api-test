@@ -95,7 +95,6 @@ describe('reservations', () => {
     const reservations = await testClient.get('/api/v1/reservation').then(res => res.body);
     const inAMonth = moment().utc().add(2, 'month');
     const inAMonthAnd3Days = inAMonth.add(3, 'days');
-    console.log(reservations)
     const res = await testClient.put(`/api/v1/reservation/${reservations[0].id}`)
       .send({
         "roomId": 1,

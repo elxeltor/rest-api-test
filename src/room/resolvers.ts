@@ -7,8 +7,6 @@ const TABLE_NAME = 'rooms';
 export const getAllRooms = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const allRooms = await db(TABLE_NAME).select();
-
-    console.log({allRooms});
   
     if (allRooms.length) {
       res.status(200).send(allRooms);
